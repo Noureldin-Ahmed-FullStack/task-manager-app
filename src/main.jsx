@@ -11,6 +11,7 @@ import Layout from "./Components/Layout.jsx";
 import { RedirectToSignIn, SignIn, SignUp, SignedIn, SignedOut } from "@clerk/clerk-react";
 import Tasks from "./Components/Tasks.jsx";
 import Contact from "./Components/Contact.jsx";
+import About from "./Components/About.jsx";
 
 const router = createBrowserRouter(
   [
@@ -49,7 +50,7 @@ const router = createBrowserRouter(
             </SignedOut>
           </>
         },
-        { path: "about", element: <>about</> },
+        { path: "about", element: <About /> },
         { path: "contact", element: <Contact /> },
       ],
     },

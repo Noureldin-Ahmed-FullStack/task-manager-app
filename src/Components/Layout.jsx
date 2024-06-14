@@ -1,4 +1,5 @@
 import React from "react";
+import 'react-toastify/dist/ReactToastify.css';
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import {

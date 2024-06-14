@@ -5,6 +5,8 @@ import "./App.css";
 import { MyContext } from "./Components/ContextProvider";
 import { UserButton } from "@clerk/clerk-react";
 import AddNote from "./Components/AddNote";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,10 +20,13 @@ function App() {
         </a>
         <div>
           <UserButton afterSignOutUrl="/sign-in" />
+          <h1>Welcome to the Task manager App App!</h1>
           <h2>This app uses</h2>
           <h4>Clerk + ReactJS + NodeJS + MongoDB + Routing</h4>
         </div>
         <div id="addNote">
+        <Button
+              component={Link} to={'/tasks'} sx={{'&:hover': {color:'inherit'}, marginTop:"1rem"}} variant="contained" size="lg">Get Started</Button>
         </div>
       </div>
     </>

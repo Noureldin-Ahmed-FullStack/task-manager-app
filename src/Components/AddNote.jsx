@@ -54,7 +54,7 @@ const handleTitleChange = (e)=>{
       })
       .catch((error) => {
         console.error("Error:", error);
-        toast.error(error.message, {
+        toast.error(error.response.data.message.message, {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -146,6 +146,7 @@ const handleTitleChange = (e)=>{
                   placeholder="ex: Do Chores"
                   onChange={handleTitleChange}
                   inputRef={titleRef}
+                  required
                   className="my-3 w-100"
                   multiline
                 />

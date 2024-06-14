@@ -4,7 +4,7 @@ import { Masonry } from "@mui/lab";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
-import { Container, TextField, ThemeProvider, ToggleButton, ToggleButtonGroup, createTheme } from "@mui/material";
+import { Container, Divider, TextField, ThemeProvider, ToggleButton, ToggleButtonGroup, createTheme } from "@mui/material";
 import { MyContext } from "./ContextProvider";
 import Button from "@mui/material/Button";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -18,6 +18,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { toast } from "react-toastify";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -115,6 +116,28 @@ export default function Notes({ items, setItems, FetchNotes }) {
     setSelectedNote(item)
     handleClickOpen()
   }
+  const CompleteNote = (itemID) => {
+    axios
+      .put(`${BaseURL}/completeNote/${itemID}`)
+      .then((response) => {
+        console.log(response.data);
+        FetchNotes()
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error(error.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
+
+  }
   const DeleteNote = (item) => {
     console.log(item);
     axios
@@ -194,6 +217,7 @@ export default function Notes({ items, setItems, FetchNotes }) {
                 placeholder={TitleState? TitleState : "ex: Do Chores"}
                 onChange={handleTitleChange}
                 inputRef={titleRef}
+                required
                 className="my-3 w-100"
                 multiline
               />
@@ -240,11 +264,17 @@ export default function Notes({ items, setItems, FetchNotes }) {
                   <Dropdown.Menu className="Dropdown-Menu">
                     <Dropdown.Item onClick={() => EditNote(item)}><EditOutlinedIcon /></Dropdown.Item>
                     <Dropdown.Item onClick={() => DeleteNote(item)}><DeleteOutlineIcon /></Dropdown.Item>
+                    <Dropdown.Item onClick={() => CompleteNote(item._id)}><CheckBoxIcon /></Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
               </div>
               <p style={{ whiteSpace: 'pre-line' }} className="my-2 text-start">{item.content}</p>
+              <hr style={{margin:'0'}}/>
+              <div className="d-flex justify-content-between">
+                <p className="m-0">status</p>
+                <p className="m-0">{item.status != 'completed'? 'not Completed': 'completed'}</p>
+              </div>
             </div>
 
           ))}
