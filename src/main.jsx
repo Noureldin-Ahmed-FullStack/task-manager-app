@@ -28,8 +28,8 @@ const router = createBrowserRouter(
             </SignedOut>
           </>
         },
-        { path: "sign-up", element: <SignUp forceRedirectUrl={'/task-manager-app'} /> },
-        { path: "sign-in", element: <SignIn forceRedirectUrl={'/task-manager-app'} /> },
+        { path: "sign-up", element: <SignUp forceRedirectUrl={'/'} /> },
+        { path: "sign-in", element: <SignIn forceRedirectUrl={'/'} /> },
         {
           path: "tasks", element: <>
             <SignedIn>
